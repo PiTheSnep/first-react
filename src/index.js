@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+console.log('%cowo uwu xD rawr~ *pounces on you*', "color: pink; font-weight: bold; font-size: 48px")
+
 /**
  * 1. Display the location for each move in the format (col, row) in the move history list.
  * 2. Bold the currently selected item in the move list.
@@ -30,23 +32,25 @@ class Board extends React.Component {
     }
 
     render() {
+        const rows = [];
+        for (let i = 0; i < 3; i++) {
+            const squares = [];
+
+            for (let j = 0; j < 3; j++) {
+                squares.push(this.renderSquare(j + i * 3)) // add square to array
+            }
+            
+            // add this row to row array
+            rows.push(
+                <div className="board-row">
+                    {squares}
+                </div>
+            );
+        }
+
         return (
             <div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                {rows}
             </div>
         );
     }
