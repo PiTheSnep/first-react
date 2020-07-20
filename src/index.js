@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-console.log('%cowo uwu xD rawr~ *pounces on you*', "color: pink; font-weight: bold; font-size: 48px")
+//blame Skye
+// let i = 0;
+// setInterval(() => { console.log(`%cowo uwu xD rawr~ *pounces on you*${i++}`, "color: pink; font-weight: bold; font-size: 48px") })
 
 /**
  * 1. Display the location for each move in the format (col, row) in the move history list.
@@ -66,6 +68,7 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             xIsNext: true,
+            descending: false,
         };
     }
 
@@ -85,6 +88,12 @@ class Game extends React.Component {
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
         });
+    }
+
+    handleOtherClick() {
+        this.setState({
+            descending: !this.state.descending
+        })
     }
 
     jumpTo(step) {
@@ -115,7 +124,11 @@ class Game extends React.Component {
                 </li>
             );
         });
-        
+
+        if (this.state.descending) {
+            moves.reverse()
+        }
+
         let status;
         if (winner) {
             status = "Winner: " + winner;
@@ -133,7 +146,12 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    
+                    <ol>
+                        <button onClick={() => this.handleOtherClick()}>{this.state.descending ? "Sort Ascending" : "Sort Descending"}</button>
+                        <p />
+                        {moves}
+                        </ol>
                 </div>
             </div>
         );
