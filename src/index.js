@@ -28,7 +28,7 @@ class Board extends React.Component {
     renderSquare(i) {
         let squareName = "square";
         console.log(this.props.winner)
-        if (this.props.winner && this.props.winner.includes(i)) {
+        if (this.props.winner && this.props.winner.includes(i)) { // #5
             console.log('shuold apply winner style')
             squareName = "winnerSquare"
         }
@@ -37,14 +37,14 @@ class Board extends React.Component {
                 value={this.props.squares[i]} 
                 onClick={() => this.props.onClick(i)}
                 number={i}
-                squareName={squareName}
+                squareName={squareName} // #5
             />
         );
     }
 
     render() {
         const rows = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) { // #3
             const squares = [];
 
             for (let j = 0; j < 3; j++) {
@@ -99,7 +99,7 @@ class Game extends React.Component {
         });
     }
 
-    handleOtherClick() {
+    handleOtherClick() {// #4
         this.setState({
             descending: !this.state.descending
         })
@@ -141,6 +141,8 @@ class Game extends React.Component {
         let status;
         if (winner) {
             status = "Winner: " +  (this.state.xIsNext ? 'O' : 'X');
+        } else if (this.state.stepNumber === 9){ // #6
+            status = "Draw! Try again."
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -156,9 +158,9 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    
+
                     <ol>
-                        <button onClick={() => this.handleOtherClick()}>{this.state.descending ? "Sort Ascending" : "Sort Descending"}</button>
+                        <button onClick={() => this.handleOtherClick()}>{this.state.descending ? "Sort Ascending" : "Sort Descending"}</button> {/* #4 */}
                         <p />
                         {moves}
                         </ol>
